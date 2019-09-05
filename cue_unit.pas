@@ -51,19 +51,23 @@ function Readcue(cuedatei: string; var cue: Rcue): boolean;
 
 implementation
 
-//uses os_api_unit;
+// uses os_api_unit;
 
 {$IFDEF UNIX}
-const Delimiter='/';
+
+const
+  Delimiter = '/';
 {$ELSE}
-const Delimiter='\';
+
+const
+  Delimiter = '\';
 {$ENDIF}
 
 function Readcue(cuedatei: string; var cue: Rcue): boolean;
 
   function afzentf(zeile: string): string;
   begin
-    afzentf := zeile;
+    Result := zeile;
     zeile := trim(zeile);
     if length(zeile) < 3 then
       exit;
@@ -72,7 +76,7 @@ function Readcue(cuedatei: string; var cue: Rcue): boolean;
     if zeile[length(zeile)] = '"' then
       zeile[length(zeile)] := ' ';
     zeile := trim(zeile);
-    afzentf := zeile;
+    Result := zeile;
   end;
 
 const
@@ -172,7 +176,7 @@ begin
     until eof(f);
 
     { ggf. pfad hinzufügen }
-    if (strrscan(pchar(cue.imgdatei), delimiter) = nil) then
+    if (strrscan(pchar(cue.imgdatei), Delimiter) = nil) then
     begin
       tmpstr := IncludeTrailingPathDelimiter(extractfilepath(cue.cuedatei));
       cue.imgdatei := tmpstr + cue.imgdatei;
