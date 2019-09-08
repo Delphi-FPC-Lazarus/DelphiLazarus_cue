@@ -47,23 +47,13 @@ type
     entrys: array of Rcueentry;
   end;
 
-function Readcue(cuedatei: string; var cue: Rcue): boolean;
+function Readcue(const cuedatei: string; var cue: Rcue): boolean;
 
 implementation
 
-// uses os_api_unit;
+uses os_api_unit;
 
-{$IFDEF UNIX}
-
-const
-  Delimiter = '/';
-{$ELSE}
-
-const
-  Delimiter = '\';
-{$ENDIF}
-
-function Readcue(cuedatei: string; var cue: Rcue): boolean;
+function Readcue(const cuedatei: string; var cue: Rcue): boolean;
 
   function afzentf(zeile: string): string;
   begin
